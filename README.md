@@ -13,7 +13,7 @@ The ideal use for this is:
 Please refer to the config.json files in both APIs, they are self explanitory.
 
 # Planned featues
-- [ ] Accounts
+- [ ] Accounts (eliminate external API by restricting features to admins only)
 - [x] Allow for activation using the External API
 - [x] Private internal API used to generate, delete, block and unblock keys
 - [x] External API that applications can access
