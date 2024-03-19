@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const keys = require("../db/keys.js");
+const keys = require("../../db/keys.js");
 
 mongoose.set('strictQuery', true);
 
-app.get("/activation/deactivate/:key", async (req, res) =>{
+app.get("/activation/activate/:key", async (req, res) => {
     let actKey = req.params.key;
-
+    
     try{
         let keyFound = false;
         let keyActivated = false;
@@ -21,16 +21,15 @@ app.get("/activation/deactivate/:key", async (req, res) =>{
 
         if (keyFound == true) 
         {
-            if (keyActivated == true)
+            if (keyActivated == false)
             {
-                await key.updateOne({ $set: { activated: "no", updated: new Date().toISOString() } });
-                return res.json({ "type": "Success"})
+                await key.updateOne({ $set: { activated: "yes", updated: new Date().toISOString() } });
+                return res.json({ "type": "valid"})
             }
         }
-
-        return res.json({ "type": "Error" })
+        return res.json({ "type": "invalid" })
     }catch(e){
-        return res.json({ "type": "Error" })
+        return res.json({ "type": "invalid" })
     }
 });
 

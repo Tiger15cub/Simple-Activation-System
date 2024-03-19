@@ -1,28 +1,29 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const keys = require("../db/keys.js");
+const keys = require("../../db/keys.js");
 
 mongoose.set('strictQuery', true);
 
-app.get("/activation/unblock/:key", async (req, res) => {
+app.get("/activation/deactivate/:key", async (req, res) =>{
     let actKey = req.params.key;
 
     try{
         let keyFound = false;
-        let keyBlocked = false;
+        let keyActivated = false;
 
         const key = await keys.findOne({ key : actKey })
         if ( key ) keyFound = true;
         
-        const isKeyBlocked = key.blocked;
-        if( isKeyBlocked == "yes" ) keyBlocked = true;
+        const isKeyActivated = key.activated;
+        if( isKeyActivated == "yes" ) keyActivated = true;
+        if( key.blocked == "yes" ) return res.json({"type": "error", "error": "Your key is blocked!"})
 
         if (keyFound == true) 
         {
-            if (keyBlocked == true)
+            if (keyActivated == true)
             {
-                await key.updateOne({ $set: { blocked: "no", updated: new Date().toISOString() } });
+                await key.updateOne({ $set: { activated: "no", updated: new Date().toISOString() } });
                 return res.json({ "type": "Success"})
             }
         }

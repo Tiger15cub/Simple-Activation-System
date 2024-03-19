@@ -9,8 +9,12 @@ const PORT = config.Internal_Server_Port;
 
 mongoose.set('strictQuery', true);
 
-fs.readdirSync("./paths").forEach(fileName => {
-    app.use(require(`./paths/${fileName}`));
+fs.readdirSync("./paths/activation").forEach(fileName => {
+    app.use(require(`./paths/activation/${fileName}`));
+});
+
+fs.readdirSync("./paths/account").forEach(fileName => {
+    app.use(require(`./paths/account/${fileName}`));
 });
 
 app.listen(PORT, () => {

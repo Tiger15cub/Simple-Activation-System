@@ -1,15 +1,20 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const keys = require("../db/keys.js");
+const keys = require("../../db/keys.js");
+const accounts = require("../../db/accounts.js");
 
 mongoose.set('strictQuery', true);
 
-app.get("/activation/block/:key", async (req, res) => {
+app.get("/activation/unblock/:key/:auth", async (req, res) => {
     let actKey = req.params.key;
+    let auth = req.params.auth;
+
     try{
         let keyFound = false;
         let keyBlocked = false;
+        let user = await accounts.findOne({ password: auth })
+        if (user.admin == false) return res.json({ type: "error", error: "You are not an admin!" });
 
         const key = await keys.findOne({ key : actKey })
         if ( key ) keyFound = true;
@@ -19,9 +24,9 @@ app.get("/activation/block/:key", async (req, res) => {
 
         if (keyFound == true) 
         {
-            if (keyBlocked == false)
+            if (keyBlocked == true)
             {
-                await key.updateOne({ $set: { blocked: "yes", updated: new Date().toISOString() } });
+                await key.updateOne({ $set: { blocked: "no", updated: new Date().toISOString() } });
                 return res.json({ "type": "Success"})
             }
         }

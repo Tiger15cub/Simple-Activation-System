@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const keys = require("../db/keys.js");
+const keys = require("../../db/keys.js");
 
 mongoose.set('strictQuery', true);
 
