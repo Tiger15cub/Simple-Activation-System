@@ -7,7 +7,6 @@ The ideal use for this is:
 
 # Download
 - [Internal API](https://github.com/katopiler/Simple-Activation-System/archive/refs/heads/Internal-API.zip)
-- [External API](https://github.com/katopiler/Simple-Activation-System/archive/refs/heads/External-API.zip)
 
 # Config
 Please refer to the config.json files in both APIs, they are self explanitory.
