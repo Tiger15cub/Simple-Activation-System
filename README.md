@@ -6,7 +6,7 @@ The ideal use for this is:
  - Anything where a user receves a key.
 
 # Download
-- [Internal API](https://github.com/katopiler/Simple-Activation-System/archive/refs/heads/Internal-API.zip)
+- [Download](https://github.com/katopiler/Simple-Activation-System/archive/refs/heads/Internal-API.zip)
 
 # Config
 Please refer to the config.json files in both APIs, they are self explanitory.
